@@ -101,6 +101,7 @@ scrape_configs:
 	})
 }
 
+// nolint (it's still used in skipped test).
 func promQLCompatConfig(reference *e2edb.Prometheus, target e2e.Runnable, dropLabels []string) string {
 	return `reference_target_config:
   query_url: 'http://` + reference.InternalEndpoint("http") + `'
@@ -120,14 +121,16 @@ query_tweaks:
 	}()
 }
 
+// nolint (it's still used in skipped test).
 type alwaysReadyProbe struct{}
 
+// nolint (it's still used in skipped test).
 func (p alwaysReadyProbe) Ready(e2e.Runnable) error { return nil }
 
 // TestAlertCompliance tests Alert compatibility against https://github.com/prometheus/compliance/blob/main/alert_generator.
 // NOTE: This requires dockerization of compliance framework: https://github.com/prometheus/compliance/pull/46
 func TestAlertCompliance_StatelessRuler(t *testing.T) {
-	//t.Skip("This is an interactive test, using https://github.com/prometheus/compliance/tree/main/alert_generator testing is not optimized for CI runs")
+	t.Skip("This is an interactive test, using https://github.com/prometheus/compliance/tree/main/alert_generator testing is not optimized for CI runs")
 
 	e, err := e2e.NewDockerEnvironment("alert_compatibility")
 	testutil.Ok(t, err)
@@ -187,6 +190,7 @@ func TestAlertCompliance_StatelessRuler(t *testing.T) {
 	testutil.Ok(t, err)
 }
 
+// nolint (it's still used in skipped test).
 func alertCompatConfig(receive e2e.Runnable, query e2e.Runnable) string {
 	return `settings:
   remote_write_url: '` + e2ethanos.RemoteWriteEndpoint(receive.InternalEndpoint("http")) + `'
